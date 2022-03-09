@@ -87,13 +87,18 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
           <a class="nav-link" href="#aboutPage" data-bs-toggle="modal" data-target="#aboutPage">Acerca de</a>
           </li>
         <li class="nav-item dropdown" id="despliega">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Descargas</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
             <li><a class="dropdown-item" href="#">Descargar PDF</a></li>
             <li><a class="dropdown-item" href="#">Descargar KML</a></li>
-            <li><a class="dropdown-item" href="#">Herramienta C</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" id="despliega">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
+            <li><a class="dropdown-item" href="http://www.google.cl">Herramienta Tipo A</a></li>
             <li><hr class="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="#">Herramienta D</a></li>
+            <li><a class="dropdown-item" href="#">Herramienta Tipo B</a></li>
           </ul>
         </li>  
         </ul>
@@ -154,13 +159,21 @@ aboutPage.addEventListener('shown.bs.modal', function () {
 
 L.control.locate({
 position: 'topleft',
+icon: 'fa fa-map-marker',
+iconLoading: 'fa fa-spinner fa-spin',
 flyTo: true,
+locateOptions: {
+  enableHighAccuracy: true
+},
 strings: {
-title: "KIUS"
+title: "Muestra tu ubicación actual",
+popup: "La precisión actual es de aprox. {distance} {unit} alrededor de este punto.",
+metersUnit: "metros",
     }
 }).addTo(map);
 
 
+ 
 
 </script>
 

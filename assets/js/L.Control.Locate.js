@@ -227,8 +227,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             /** Accuracy circle style properties. NOTE these styles should match the css animations styles */
             circleStyle: {
                 className:   'leaflet-control-locate-circle',
-                color:       '#136AEC',
-                fillColor:   '#136AEC',
+                color:       '#D36143',
+                fillColor:   '#D36143',
                 fillOpacity: 0.15,
                 weight:      0
             },
@@ -236,7 +236,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             markerStyle: {
                 className:   'leaflet-control-locate-marker',
                 color:       '#fff',
-                fillColor:   '#2A93EE',
+                fillColor:   '#D36143',
                 fillOpacity: 1,
                 weight:      3,
                 opacity:     1,
