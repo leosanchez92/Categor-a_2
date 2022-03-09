@@ -152,6 +152,14 @@ aboutPage.addEventListener('shown.bs.modal', function () {
     maxNativeZoom: 18,
 }).addTo(map);
 
+L.control.locate({
+position: 'topleft',
+flyTo: true,
+strings: {
+title: "KIUS"
+    }
+}).addTo(map);
+
 
 
 </script>
