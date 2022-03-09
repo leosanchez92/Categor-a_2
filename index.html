@@ -49,6 +49,9 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <!----------------------------CAPAS-GEOJSON----------------------------->
+<!----------------------------CAPAS-GEOJSON----------------------------->
+<script type="text/javascript" src="data/limite_comunal.js"></script>
+<script type="text/javascript" src="data/tm_imp.js"></script>
 
 <style>
 /*TÍTULO RESPONSIVE*/
@@ -152,9 +155,8 @@ aboutPage.addEventListener('shown.bs.modal', function () {
 /*MAPA*/
  var map = L.map('map').setView([-38.7359326, -73.0208552], 11);
  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     opacity: 1.0,
-    attribution: '',
     minZoom: 10,
     maxZoom: 14,
     minNativeZoom: 0,
@@ -176,10 +178,54 @@ metersUnit: "metros",
     }
 }).addTo(map);
 
-
+L.geoJson(limiteComunal,{style:styleLimite}).addTo(map);
+L.geoJson(tmImperial,{style:styleTM}).addTo(map);
  
+//Función de estilo para limitecomunal
+function styleLimite(feature) {
+  return{
+    fillOpacity:0,
+    opacity: 0.8,
+    color: 'rgba(219,58,58,1.0)',
+    //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
+    lineCap: 'butt',  
+    lineJoin: 'round',  //(Uniones, redondeadas o rectas)
+    weight: 2.0,
+    fill: false,
+    fillOpacity: 0.8,
+    fillColor: 'rgba(229,182,54,0.0)',
+    interactive: false,
+  }
+}
+
+//Función de estilo para TM
+function styleTM(feature) {
+  return{
+    fillOpacity:0,
+    opacity: 0.2,
+    color: 'rgba(219,58,58,1.0)',
+    //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
+    lineCap: 'butt',  
+    lineJoin: 'round',  //(Uniones, redondeadas o rectas)
+    weight: 1.5,
+    fill: true,
+    fillOpacity: 0.2,
+    fillColor: '#96cf2a',
+    interactive: true,
+  }
+}
+
+
+
 
 </script>
-
+<!--SELECTOR DE COLOR-->
+<style>
+  /*
+  .fill{
+    background-color: #96cf2a;
+  }
+  */
+</style>
 </body>
 </html>
