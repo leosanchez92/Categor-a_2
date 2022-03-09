@@ -1,0 +1,34 @@
+
+.dropdown-menu {
+  background: linear-gradient( rgba(247, 210, 130, 0.658), rgba(248, 228, 164, 0.63), rgba(248, 205, 111, 0.705));
+  margin-top: 2px;
+  }
+
+  
+.navbar {
+    background: linear-gradient( rgb(236, 180, 58), rgb(231, 182, 19), rgb(241, 168, 11));
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  }
+
+
+a:link, a:visited, a:hover, a:active {
+    color: #000000;
+    text-decoration: none;
+  }
+
+ .dropdown-menu > li > a:hover {
+    background-image: none;
+    background-color: rgba(247, 213, 62, 0.568);
+      }
+
+html, body, #map {
+          width: 100%;
+          height: 100%;
+          padding-bottom: 31px;
+          margin: 0;
+      }
+  
+#map {
+    top: -20px;
+  }
