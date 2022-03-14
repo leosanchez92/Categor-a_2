@@ -70,6 +70,21 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
   background-color: rgba(238, 196, 58, 0.808);
 }
 
+/*DISPLAY INFO*/
+.info { 
+  padding: 6px 8px; 
+  font: 14px/16px; 
+  background: white; 
+  background: rgba(255,255,255,0.8); 
+  box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+  border-radius: 5px; 
+} 
+
+.info h4 { 
+  margin: 0 0 5px; 
+  color: #777; 
+}
+
 </style>
 
 </head>
@@ -88,7 +103,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     <div class="collapse navbar-collapse" id="navbarsExample04" style="margin-left:0px;">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-          <a class="nav-link" href="http://www.nuevaimperial.cl" target="_blank" aria-current="page" ref="#">Municipalidad</a>
+          <a class="nav-link" href="http://www.nuevaimperial.cl" target="_blank" aria-current="page" ref="#">Web Municipalidad</a>
           </li>
           <li class="nav-item">
           <a class="nav-link" href="#aboutPage" data-bs-toggle="modal" data-target="#aboutPage">Acerca de</a>
@@ -152,9 +167,9 @@ aboutPage.addEventListener('shown.bs.modal', function () {
   myInput.focus()
 })
 
-/*MAPA*/
+/*MAPA BASE*/
  var map = L.map('map').setView([-38.7359326, -73.0208552], 11);
- L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     opacity: 1.0,
     minZoom: 10,
@@ -162,6 +177,8 @@ aboutPage.addEventListener('shown.bs.modal', function () {
     minNativeZoom: 0,
     maxNativeZoom: 18,
 }).addTo(map);
+
+// 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' 
 
 L.control.locate({
 position: 'topleft',
@@ -178,9 +195,64 @@ metersUnit: "metros",
     }
 }).addTo(map);
 
-L.geoJson(limiteComunal,{style:styleLimite}).addTo(map);
-L.geoJson(tmImperial,{style:styleTM}).addTo(map);
- 
+//INFO (ESTILO A)
+
+var info = L.control();
+
+info.onAdd = function (map) {
+  this._div = L.DomUtil.create('div', 'info');
+  this.update();
+  return this._div;
+};
+
+info.update = function (props) {
+  this._div.innerHTML = '<h4>Localidad/comunidad</h4>' +  (props ?
+    '<b>' + props.COMUNIDAD + '</b><br />' + 'TM: ' + props.TM : 'Seleccione para ver información');
+};
+
+info.addTo(map);
+
+//CAPAS
+
+var imp = L.geoJson(limiteComunal, {
+  style: styleLimite,
+}).addTo(map);
+
+tmImpe = L.geoJson(tmImperial, {
+  style: styleTM,
+  onEachFeature: onEachFeature,       //Hover 
+}).addTo(map);
+
+// PROPIEDADES HOVER TM
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+      weight: 0,
+      fillColor: '#e08916',
+      dashArray: '',
+      fillOpacity: 0.7,
+    });
+
+    info.update(layer.feature.properties);
+  }
+
+var tmImpe;
+
+function resetHighlight(e) {
+  tmImpe.resetStyle(e.target);
+  info.update();
+}
+
+function onEachFeature(feature, layer) {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+  });
+  var popupContent = 'TM';
+  layer.bindPopup(popupContent,{maxHeight: 400});
+}
+
 //Función de estilo para limitecomunal
 function styleLimite(feature) {
   return{
@@ -217,13 +289,12 @@ function styleTM(feature) {
 
 
 
-
 </script>
 <!--SELECTOR DE COLOR-->
 <style>
   /*
   .fill{
-    background-color: #96cf2a;
+    background-color: #e08916;
   }
   */
 </style>
