@@ -74,15 +74,14 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 .info { 
   padding: 6px 8px; 
   font: 14px/16px; 
-  background: white; 
-  background: rgba(255,255,255,0.8); 
+  background: rgba(238, 196, 58, 0.5); 
   box-shadow: 0 0 15px rgba(0,0,0,0.2); 
   border-radius: 5px; 
 } 
 
 .info h4 { 
   margin: 0 0 5px; 
-  color: #777; 
+  color: rgb(0, 0, 0); 
 }
 
 </style>
@@ -157,9 +156,9 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     </div>
   </div>
 </div>
-<!--SCRIPTS-->
 <script>
-/*MODAL*/
+
+// MODAL
 var aboutPage = document.getElementById('aboutPage')
 var myInput = document.getElementById('myInput')
 
@@ -167,7 +166,7 @@ aboutPage.addEventListener('shown.bs.modal', function () {
   myInput.focus()
 })
 
-/*MAPA BASE*/
+// MAPA BASE
  var map = L.map('map').setView([-38.7359326, -73.0208552], 11);
  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -249,9 +248,12 @@ function onEachFeature(feature, layer) {
     mouseover: highlightFeature,
     mouseout: resetHighlight,
   });
-  var popupContent = 'TM';
-  layer.bindPopup(popupContent,{maxHeight: 400});
+  var popupContent = 'TM';                          // POP-UP 
+  layer.bindPopup(popupContent,{
+    maxHeight: 400,
+  });
 }
+
 
 //Función de estilo para limitecomunal
 function styleLimite(feature) {
@@ -286,8 +288,6 @@ function styleTM(feature) {
     interactive: true,
   }
 }
-
-
 
 </script>
 <!--SELECTOR DE COLOR-->
