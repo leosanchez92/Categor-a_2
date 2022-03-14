@@ -56,11 +56,11 @@
 	display:none;/* comment for cancel button imageless */
 	font-size:18px;
 	line-height:20px;
-	color:#ccc;
+	color:rgb(224, 151, 151);
 	font-weight:bold;
 }
 .leaflet-control-search .search-cancel:hover span {
-	color:#aaa;
+	color:rgb(173, 120, 120);
 }
 .leaflet-control-search .search-button {
 	display:block;
@@ -113,7 +113,7 @@
 	font-size:.75em;
 	margin-bottom:5px;
 	padding:0 .25em;
-	color:#e00;
+	color:rgb(238, 95, 0);
 	font-weight:bold;
 	border-radius:.25em;
 }
