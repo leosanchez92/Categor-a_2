@@ -40,6 +40,9 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script src="assets/js/L.Control.Locate.js"></script>
 <link rel="stylesheet" href="assets/css/index1.css">
 <script src="assets/js/index1.js"></script>
+<link rel="stylesheet" href="assets/css/leaflet-search.css" />
+
+<script src="assets/js/leaflet-search.js"></script>
 
 <!--FAVICON-->
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
@@ -66,13 +69,17 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     }  
   }
 
+  .restaurant.leaflet-marker-icon {
+	background: #66f
+}
+
 .navbar-toggler{
   background-color: rgba(238, 196, 58, 0.808);
 }
 
 /*DISPLAY INFO*/
 .info { 
-  padding: 6px 8px; 
+  padding: 10px 10px; 
   font-size: 14px/25px; 
   background: rgba(238, 196, 58, 0.3); 
   box-shadow: 0 0 15px rgba(0,0,0,0.2); 
@@ -222,7 +229,12 @@ metersUnit: "metros",
     }
 }).addTo(map);
 
-//INFO (ESTILO A)
+// BUSQUEDA
+
+
+
+
+//INFO RECUADRO
 
 var info = L.control();
 
@@ -239,16 +251,6 @@ info.update = function (props) {
 
 info.addTo(map);
 
-//CAPAS
-
-var imp = L.geoJson(limiteComunal, {
-  style: styleLimite,
-}).addTo(map);
-
-tmImpe = L.geoJson(tmImperial, {
-  style: styleTM,
-  onEachFeature: onEachFeatureTM,       // onEach (hover, popup) 
-}).addTo(map);
 
 // PROPIEDADES HOVER TM
 function highlightFeature(e) {
@@ -258,13 +260,11 @@ function highlightFeature(e) {
       weight: 0,
       fillColor: '#125312',
       dashArray: '',
-      fillOpacity: 0.7,
+      fillOpacity: 0.5,
     });
 
     info.update(layer.feature.properties);
   }
-
-var tmImpe;
 
 function resetHighlight(e) {
   tmImpe.resetStyle(e.target);
@@ -276,6 +276,7 @@ function onEachFeatureTM(feature, layer) {    // onEach TM
     mouseover: highlightFeature,
     mouseout: resetHighlight,
   });
+
   var popupContent =  '<table>\
                       <tr>\
                         <th scope="row">Comunidad:</th>\
@@ -327,12 +328,52 @@ function styleTM(feature) {
   }
 }
 
+//CAPAS
+
+var imp = L.geoJson(limiteComunal, {
+  style: styleLimite,
+}).addTo(map);
+
+var tmImpe = new L.geoJson(tmImperial, {
+  style: styleTM,
+  onEachFeature: onEachFeatureTM,       // onEach (hover, popup) 
+}).addTo(map);
+
+var searchControl = new L.Control.Search({
+		layer: tmImpe, 
+		propertyName: 'COMUNIDAD',
+		marker: false,
+    zoom: 13,
+    textPlaceholder: 'Buscar localidad/comunidad',
+    textCancel: 'Cancelar',
+    textErr: 'No encontrado',
+    marker: {
+      icon: 'fa fa-map-marker',
+    },
+	});
+	
+  searchControl.on('search:locationfound', function(e) {
+		e.layer.setStyle({fillColor: '#e64b0e', opacity: 0.8});
+		if(e.layer._popup)
+			e.layer.openPopup();
+	}).on('search:collapsed', function(e) {
+		featuresLayer.eachLayer(function(layer) {	//restore feature color
+      featuresLayer.resetStyle(layer);
+		});	
+	});
+	
+  
+  
+  map.addControl(searchControl);
+
+
+
 </script>
 <!--SELECTOR DE COLOR-->
 <style>
   /*
   .fill{
-    background-color: #125312;
+    background-color: #e64b0e;
   }
   */
 </style>
