@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
 integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-<link rel="stylesheet" href="assets/css/leaflet.groupedlayercontrol.min.css"/>
+
 <link rel="stylesheet" src="assets/css/L.Control.Locate.scss" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
@@ -52,9 +52,10 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 <!----------------------------CAPAS-GEOJSON----------------------------->
-<!----------------------------CAPAS-GEOJSON----------------------------->
 <script type="text/javascript" src="data/limite_comunal.js"></script>
 <script type="text/javascript" src="data/tm_imp.js"></script>
+<script type="text/javascript" src="data/loc2022.js"></script>
+
 
 <style>
 /*TÍTULO RESPONSIVE*/
@@ -93,16 +94,17 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 }
 
 .leaflet-popup-content-wrapper {
-      background: rgba(238, 196, 58, 0.8);
+      background: rgba(255, 255, 255, 0.774);
       color: rgb(0, 0, 0);
       font-size: 12px;
       line-height: 24px;
-      border-radius: 4px;
+      border-radius: 5px;
       max-width: 250px;
+      font-family: 'Roboto', sans-serif;
 }
 
 .leaflet-popup-tip {
-    background: rgba(238, 196, 58, 0.8);
+    background: rgba(255, 255, 255, 0.774);
     box-shadow: 10px ;
 }
 
@@ -139,7 +141,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
         <li class="nav-item dropdown" id="despliega">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
-            <li><a class="dropdown-item" href="http://www.google.cl">Herramienta Tipo A</a></li>
+            <li><a class="dropdown-item" href="#" id="ext-completa">Herramienta Tipo A</a></li>
             <li><hr class="dropdown-divider"></hr></li>
             <li><a class="dropdown-item" href="#">Herramienta Tipo B</a></li>
           </ul>
@@ -181,8 +183,6 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script>
 
 // MODAL
-
-
 var aboutPage = document.getElementById('aboutPage')
 var myInput = document.getElementById('myInput')
 
@@ -192,17 +192,29 @@ aboutPage.addEventListener('shown.bs.modal', function () {
 
 
 // MAPA BASE
- var map = L.map('map', {zoomControl: false}).setView([-38.7359326, -73.0208552], 11);
- L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+ var map = L.map('map', {zoomControl: false, minZoom: 10, maxZoom: 15, zoomSnap: 0.5}).setView([-38.6959326, -72.98552], 10.5);
+ 
+ var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     opacity: 1.0,
     minZoom: 10,
-    maxZoom: 14,
+    maxZoom: 15,
     minNativeZoom: 0,
     maxNativeZoom: 18,
+    zIndex: 400,
 }).addTo(map);
 
-// 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}' 
+var ESRIsat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    opacity: 1.0,
+    minZoom: 10,
+    maxZoom: 15,
+    minNativeZoom: 0,
+    maxNativeZoom: 18,
+    zIndex: 399,
+});
+
+
 
 // ZOOM CONTROL
 
@@ -229,7 +241,7 @@ metersUnit: "metros",
     }
 }).addTo(map);
 
-//INFO RECUADRO
+/*INFO RECUADRO
 
 var info = L.control();
 
@@ -241,13 +253,13 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
   this._div.innerHTML = '<h4>Localidad/comunidad</h4>' +  (props ?
-    '<b>' + props.COMUNIDAD + '</b><br />' + 'TM: ' + props.TM : 'Seleccione para ver información');
+    '<b>' + props.COMUNIDAD + '</b><br/>' : 'Seleccione para ver información');
 };
-
 info.addTo(map);
-
+*/
 
 // PROPIEDADES HOVER TM
+
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -261,32 +273,66 @@ function highlightFeature(e) {
     info.update(layer.feature.properties);
   }
 
-function resetHighlight(e) {
+function resetHighlightTM(e) {
   tmImpe.resetStyle(e.target);
   info.update();
 }
 
-function onEachFeatureTM(feature, layer) {    // onEach TM
+// onEach TM
+
+function onEachFeatureTM(feature, layer) {    
   layer.on({
     mouseover: highlightFeature,
-    mouseout: resetHighlight,
+    mouseout: resetHighlightTM,
   });
 
-  var popupContent =  '<table>\
+  var popupContent =  '<table class="table table-sm">\
                       <tr>\
                         <th scope="row">Comunidad:</th>\
-                        <td>' + '&nbsp' + (feature.properties.COMUNIDAD) + '</td>\
-                      </tr>\
-                      <tr>\
-                        <th scope="row">TM:</th>\
-                        <td>' + '&nbsp' + (feature.properties.TM) + '</td>\
+                        <td>' + '' + (feature.properties.COMUNIDAD) + '</td>\
                       </tr>\
                       </table>\
-                      <hr>Este espacio se puede utilizar para cualquier descripción, atributo, etc.';
+                      '
+                      ;
   layer.bindPopup(popupContent,{
     maxHeight: 400,
   });
 }
+
+// onEach Loc
+
+function onEachFeatureLoc(feature, layer) {    
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlightLoc,
+  });
+
+  var popupContent =  '<table class="table table-sm">\
+                      <tr>\
+                        <th "scope="row">Localidad:</th>\
+                        <td>' + '' + (feature.properties.NOMBRE) + '</td>\
+                      </tr>\
+                      </table>\
+                      '
+                      ;
+  layer.bindPopup(popupContent,{
+    maxHeight: 400,
+  });
+}
+
+function resetHighlightLoc(e) {
+  locImpe.resetStyle(e.target);
+  info.update();
+}
+
+/* SEGUNDA PARTE DE LA TABLA
+<tr>\
+                        <th scope="row">TM:</th>\
+                        <td>' + '&nbsp' + (feature.properties.TM) + '</td>\
+                      </tr>\
+                      </table>\
+                      <hr>Este espacio se puede utilizar para cualquier descripción, atributo, etc.'
+*/
 
 
 //Función de estilo para limitecomunal
@@ -315,10 +361,26 @@ function styleTM(feature) {
     //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
     lineCap: 'butt',  
     lineJoin: 'round',  //(Uniones, redondeadas o rectas)
-    weight: 1.5,
+    weight: 0.8,
     fill: true,
-    fillOpacity: 0.2,
-    fillColor: '#96cf2a',
+    fillOpacity: 0.3,
+    fillColor: '#f5f225',
+    interactive: true,
+  }
+}
+//Función de estilo para Loc
+function styleLoc(feature) {
+  return{
+    fillOpacity: 0,
+    opacity: 0.2,
+    color: 'rgba(219,58,58,1.0)',
+    //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
+    lineCap: 'butt',  
+    lineJoin: 'round',  //(Uniones, redondeadas o rectas)
+    weight: 0.8,
+    fill: true,
+    fillOpacity: 0.3,
+    fillColor: '#f58925', 
     interactive: true,
   }
 }
@@ -334,13 +396,36 @@ var tmImpe = new L.geoJson(tmImperial, {
   onEachFeature: onEachFeatureTM,       // onEach (hover, popup) 
 }).addTo(map);
 
+var locImpe = new L.geoJson(locImperial, {
+  style: styleLoc,
+  onEachFeature: onEachFeatureLoc,
+}).addTo(map);
+
+
+var baselayers = {
+  "Mapa base - OpenStreetMaps": osm,
+  "Mapa base - ESRI Satelital": ESRIsat,
+}
+
+var locTM = {
+  "CAPAS DE INFORMACIÓN": {
+    "Comunidades": tmImpe,
+    "Localidades rurales": locImpe
+}
+};
+
+L.control.groupedLayers(baselayers, locTM, {collapsed: false}).addTo(map);
+
+
+
+
 // BUSQUEDA
 
 var searchControl = new L.Control.Search({
 		layer: tmImpe, 
 		propertyName: 'COMUNIDAD',
 		marker: false,
-    zoom: 12,
+    zoom: 13,
     textPlaceholder: 'Buscar localidad/comunidad',
     textCancel: 'Cancelar',
     textErr: 'No encontrado',
@@ -350,11 +435,11 @@ var searchControl = new L.Control.Search({
 	});
 	
   searchControl.on('search:locationfound', function(e) {
-		e.layer.setStyle({fillColor: '#e64b0e', opacity: 0.8});
+		e.layer.setStyle({fillColor: '#25c5f5', color: '#25c5f5', opacity: 0.8});
 		if(e.layer._popup)
 			e.layer.openPopup();
 	}).on('search:collapsed', function(e) {
-		featuresLayer.eachLayer(function(layer) {	//restore feature color
+		featuresLayer.eachLayer(function(layer) {	// restaurar color entidad
       featuresLayer.resetStyle(layer);
 		});	
 	});
@@ -368,7 +453,7 @@ var searchControl = new L.Control.Search({
 <style>
   /*
   .fill{
-    background-color: #e64b0e;
+    background-color: #25c5f5;
   }
   */
 </style>
