@@ -31,7 +31,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-<script src="assets/js/leaflet.groupedlayercontrol.min.js"></script>
+
 <script src="assets/js/leaflet-hash.js"></script>
 <script src="assets/js/leaflet.rotatedMarker.js"></script>
 <script src="assets/js/Autolinker.min.js"></script>
@@ -56,6 +56,8 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script type="text/javascript" src="data/tm_imp.js"></script>
 <script type="text/javascript" src="data/loc2022.js"></script>
 
+<script src="assets/js/leaflet.groupedlayercontrol.min.js"></script>
+<link rel="stylesheet" href="assets/css/leaflet.groupedlayercontrol.min.css" />
 
 <style>
 /*TÍTULO RESPONSIVE*/
@@ -108,6 +110,30 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     box-shadow: 10px ;
 }
 
+.leaflet-control-layers-group-name {
+      font-weight: bold !important;
+      margin-bottom: .2em !important;
+      display: block !important;
+    }
+
+    .leaflet-control-layers-group {
+      margin-bottom: .5em !important;
+      
+    }
+
+    .leaflet-control-layers-group label {
+      font-family: 'Roboto', sans-serif !important;
+      padding-left: .5em !important;
+      font-weight: 400 !important;
+      margin: 0px;
+    }
+
+    .incomprensible {
+      font-family: 'Roboto', sans-serif;
+      padding-left: .5em;
+      font-weight: 400;
+      margin-bottom: -51px;
+    }
 </style>
 
 </head>
@@ -403,18 +429,18 @@ var locImpe = new L.geoJson(locImperial, {
 
 
 var baselayers = {
-  "Mapa base - OpenStreetMaps": osm,
-  "Mapa base - ESRI Satelital": ESRIsat,
+  "<span class='incomprensible'>Mapa base - Open Street Maps</span>": osm,
+  "<span class='incomprensible'>Mapa base - ESRI Satelital</span>": ESRIsat,
 }
 
 var locTM = {
   "CAPAS DE INFORMACIÓN": {
     "Comunidades": tmImpe,
     "Localidades rurales": locImpe
-}
+ }
 };
 
-L.control.groupedLayers(baselayers, locTM, {collapsed: false}).addTo(map);
+L.control.groupedLayers(baselayers, locTM).addTo(map);
 
 
 
