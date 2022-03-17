@@ -72,68 +72,9 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     }  
   }
 
-  .restaurant.leaflet-marker-icon {
-	background: #66f
-}
 
-.navbar-toggler{
-  background-color: rgba(238, 196, 58, 0.808);
-}
 
-/*DISPLAY INFO*/
-.info { 
-  padding: 10px 10px; 
-  font-size: 14px/25px; 
-  background: rgba(238, 196, 58, 0.8); 
-  box-shadow: 0 0 15px rgba(0,0,0,0.2); 
-  border-radius: 5px; 
-  font-family: 'Roboto', sans-serif;
-} 
 
-.info h4 { 
-  margin: 0 0 5px; 
-  color: rgb(0, 0, 0); 
-}
-
-.leaflet-popup-content-wrapper {
-      background: rgba(255, 255, 255, 0.774);
-      color: rgb(0, 0, 0);
-      font-size: 12px;
-      line-height: 24px;
-      border-radius: 5px;
-      max-width: 250px;
-      font-family: 'Roboto', sans-serif;
-}
-
-.leaflet-popup-tip {
-    background: rgba(255, 255, 255, 0.774);
-    box-shadow: 10px ;
-}
-
-.leaflet-control-layers-group-name {
-      font-weight: bold !important;
-      margin-bottom: .2em !important;
-      display: block !important;
-    }
-
-    .leaflet-control-layers-group {
-      margin-bottom: .5em !important;
-      
-    }
-
-    .leaflet-control-layers-group label {
-      font-family: 'Roboto', sans-serif !important;
-      padding-left: .5em !important;
-      font-weight: 400 !important;
-      margin: 0px;
-    }
-
-    .incomprensible {
-      font-family: 'Roboto', sans-serif;
-      padding-left: .5em;
-      font-weight: 400;
-      margin-bottom: -51px;
-    }
 </style>
 
 </head>
@@ -429,8 +370,8 @@ var locImpe = new L.geoJson(locImperial, {
 
 
 var baselayers = {
-  "<span class='incomprensible'>Mapa base - Open Street Maps</span>": osm,
-  "<span class='incomprensible'>Mapa base - ESRI Satelital</span>": ESRIsat,
+  "Mapa base - Open Street Maps": osm,
+  "Mapa base - ESRI Satelital": ESRIsat,
 }
 
 var locTM = {
