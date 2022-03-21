@@ -53,7 +53,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <meta name="theme-color" content="#ffffff">
 <!----------------------------CAPAS-GEOJSON----------------------------->
 <script type="text/javascript" src="data/limite_comunal.js"></script>
-<script type="text/javascript" src="data/tm_imp.js"></script>
+<script type="text/javascript" src="data/comunidades2022.js"></script>
 <script type="text/javascript" src="data/loc2022.js"></script>
 
 <script src="assets/js/leaflet.groupedlayercontrol.min.js"></script>
@@ -72,6 +72,11 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
     }  
   }
 
+.search-tip b {
+  float: right;
+  padding: 1px;
+  
+}
 
 
 
@@ -232,7 +237,6 @@ function highlightFeature(e) {
 
     layer.setStyle({
       weight: 4,
-        color: '#666',
         dashArray: '',
         fillOpacity: 0.7
     });
@@ -253,10 +257,10 @@ function onEachFeatureTM(feature, layer) {
     mouseout: resetHighlightTM,
   });
 
-  var popupContent =  '<table class="table table-sm">\
+  var popupContent =  '<table class="">\
                       <tr>\
                         <th scope="row">Comunidad:</th>\
-                        <td>' + '' + (feature.properties.COMUNIDAD) + '</td>\
+                        <td>' + '&nbsp' + (feature.properties.NOMBRE) + '</td>\
                       </tr>\
                       </table>\
                       '
@@ -274,10 +278,10 @@ function onEachFeatureLoc(feature, layer) {
     mouseout: resetHighlightLoc,
   });
 
-  var popupContent =  '<table class="table table-sm">\
+  var popupContent =  '<table class="">\
                       <tr>\
                         <th "scope="row">Localidad:</th>\
-                        <td>' + '' + (feature.properties.NOMBRE) + '</td>\
+                        <td>' + '&nbsp' + (feature.properties.NOMBRE) + '</td>\
                       </tr>\
                       </table>\
                       '
@@ -307,7 +311,7 @@ function styleLimite(feature) {
   return{
     fillOpacity:0,
     opacity: 0.8,
-    color: 'rgba(219,58,58,1.0)',
+    color: 'rgba(219,58,58, 1.0)',
     //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
     lineCap: 'butt',  
     lineJoin: 'round',  //(Uniones, redondeadas o rectas)
@@ -324,11 +328,11 @@ function styleTM(feature) {
   return{
     fillOpacity:0,
     opacity: 0.2,
-    color: 'rgba(219,58,58,1.0)',
+    color: 'rgba(34,24,24,1.0)',
     //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
     lineCap: 'butt',  
     lineJoin: 'round',  //(Uniones, redondeadas o rectas)
-    weight: 0.8,
+    weight: 0.6,
     fill: true,
     fillOpacity: 0.3,
     fillColor: '#f5f225',
@@ -340,11 +344,11 @@ function styleLoc(feature) {
   return{
     fillOpacity: 0,
     opacity: 0.2,
-    color: 'rgba(219,58,58,1.0)',
+    color: 'rgba(34,24,24,1.0)',
     //dashArray: '10,5', (Línea punteada, mayor valor menos segmentos)
     lineCap: 'butt',  
     lineJoin: 'round',  //(Uniones, redondeadas o rectas)
-    weight: 0.8,
+    weight: 0.6,
     fill: true,
     fillOpacity: 0.3,
     fillColor: '#f58925', 
@@ -358,7 +362,7 @@ var imp = L.geoJson(limiteComunal, {
   style: styleLimite,
 }).addTo(map);
 
-var tmImpe = new L.geoJson(tmImperial, {
+var tmImpe = new L.geoJson(com2022, {
   style: styleTM,
   onEachFeature: onEachFeatureTM,       // onEach (hover, popup) 
 }).addTo(map);
@@ -384,15 +388,23 @@ var locTM = {
 L.control.groupedLayers(baselayers, locTM).addTo(map);
 
 
-
-
 // BUSQUEDA
 
+var searchLayers = L.layerGroup([
+  tmImpe,
+   locImpe
+  ]);
+
+
 var searchControl = new L.Control.Search({
-		layer: tmImpe, 
-		propertyName: 'COMUNIDAD',
+		layer: searchLayers, 
+		propertyName: 'NOMBRE', 
 		marker: false,
-    zoom: 13,
+    buildTip: function(text, val) {
+			var type = val.layer.feature.properties.TIPO;
+			return '<a href="#" class="'+type+'">'+text+'<b>'+type+'</b></a>';
+		},
+    zoom: 12,
     textPlaceholder: 'Buscar localidad/comunidad',
     textCancel: 'Cancelar',
     textErr: 'No encontrado',
@@ -420,7 +432,7 @@ var searchControl = new L.Control.Search({
 <style>
   /*
   .fill{
-    background-color: #25c5f5;
+    background-color: #f5e725, rgb(rgb(34, 24, 24));
   }
   */
 </style>

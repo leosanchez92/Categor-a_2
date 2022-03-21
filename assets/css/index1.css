@@ -84,3 +84,9 @@ html, body, #map {
   .leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
     margin: 3px;
   }
+  
+  .Comunidad.search-tip b, {
+	background: #f6f
+  }
+
+  
