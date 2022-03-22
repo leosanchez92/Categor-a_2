@@ -421,8 +421,8 @@ var searchControl = new L.Control.Search({
 		if(e.layer._popup)
 			e.layer.openPopup();
 	}).on('search:collapsed', function(e) {
-		featuresLayer.eachLayer(function(layer) {	// restaurar color entidad
-      featuresLayer.resetStyle(layer);
+		searchLayers.eachLayer(function(layer) {	// restaurar color entidad
+      searchLayers.resetStyle(layer);
 		});	
 	});
 	
