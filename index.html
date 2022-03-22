@@ -32,7 +32,6 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script src="assets/js/leaflet.zoomhome.js"></script>
 <script src="assets/js/leaflet-hash.js"></script>
 <script src="assets/js/leaflet.rotatedMarker.js"></script>
-<script src="assets/js/Autolinker.min.js"></script>
 <script src="assets/js/wNumb.js"></script>
 <script src="assets/js/labelgun.min.js"></script>
 <link rel="stylesheet" href="assets/css/index1.css" />
@@ -113,11 +112,10 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
           </ul>
         </li>
         <li class="nav-item dropdown" id="despliega">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Información territorial</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
-            <li><a class="dropdown-item" href="#" id="ext-completa">Herramienta Tipo A</a></li>
-            <li><hr class="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="#">Herramienta Tipo B</a></li>
+            <li><a class="dropdown-item" href="#" id="full-extent-btn">Plan regulador comunal</a></li>
+            <li><a class="dropdown-item" href="#">Áreas verdes</a></li>
           </ul>
         </li>  
         </ul>
@@ -161,7 +159,6 @@ var aboutPage = document.getElementById('aboutPage')
 var myInput = document.getElementById('myInput')
 
 aboutPage.addEventListener('shown.bs.modal', function () {
-  myInput.focus()
 });
 
 
