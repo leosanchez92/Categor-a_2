@@ -75,6 +75,7 @@ html, body, #map {
     font-weight: normal;
     margin-bottom: 0px;
     font-family: 'Roboto', sans-serif;
+    vertical-align: middle;
   }
 
   .leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {

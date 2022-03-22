@@ -26,12 +26,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
 integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-
+<link rel="stylesheet" href="assets/css/leaflet.zoomhome.css" />
 <link rel="stylesheet" href="/assets/css/L.Control.Locate.scss" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="assets/js/L.Control.Locate.js"></script>
+<script src="assets/js/leaflet.zoomhome.js"></script>
 <script src="assets/js/leaflet-hash.js"></script>
 <script src="assets/js/leaflet.rotatedMarker.js"></script>
 <script src="assets/js/Autolinker.min.js"></script>
@@ -79,6 +80,9 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
   color: orange;
 };
 
+.img {
+  vertical-align: middle;
+}
 
 
 </style>
@@ -114,7 +118,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
         <li class="nav-item dropdown" id="despliega">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Herramientas</a>
           <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
-            <li><a class="dropdown-item" href="#" id="ext-completa">Herramienta Tipo A</a></li>
+            <li><a class="dropdown-item" href="#" id="ext-completa" onclick="zoomHome()">Herramienta Tipo A</a></li>
             <li><hr class="dropdown-divider"></hr></li>
             <li><a class="dropdown-item" href="#">Herramienta Tipo B</a></li>
           </ul>
@@ -178,7 +182,7 @@ aboutPage.addEventListener('shown.bs.modal', function () {
 }).addTo(map);
 
 var ESRIsat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'ESRI',
+    attribution: '©<a href="http://www.esri.com/"> Esri</a>',
     opacity: 1.0,
     minZoom: 10,
     maxZoom: 15,
@@ -196,6 +200,8 @@ zoomInTitle: 'Acercar',
 zoomOutTitle: 'Alejar'
 }).addTo(map);
 ;
+
+L.Control.zoomHome();
 
 // UBICACIÓN
 L.control.locate({
@@ -385,8 +391,8 @@ var baselayers = {
 
 var locTM = {
   "CAPAS DE INFORMACIÓN": {
-    '<img src="legend/tmImp.png" /> Comunidades': tmImpe,
-    '<img src="legend/locRural.png" /> Localidades rurales': locImpe
+    '<img style="margin-bottom:4px; margin-right:4px; box-shadow:2px 2px 2px gray" src="legend/tmImp.png" /> Comunidades': tmImpe,
+    '<img style="margin-bottom:5px; margin-right:4px; box-shadow:2px 2px 2px gray" src="legend/locRural.png" /> Localidades rurales': locImpe
  }
 };
 
