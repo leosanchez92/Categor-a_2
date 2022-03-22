@@ -392,10 +392,12 @@ L.control.groupedLayers(baselayers, locTM).addTo(map);
 
 // BUSQUEDA
 
+
 var searchLayers = L.layerGroup([
   tmImpe,
    locImpe
   ]);
+
 
 
 var searchControl = new L.Control.Search({
@@ -416,13 +418,18 @@ var searchControl = new L.Control.Search({
     },
 	});
 	
+
+
   searchControl.on('search:locationfound', function(e) {
 		e.layer.setStyle({fillColor: '#25c5f5', color: '#25c5f5', opacity: 0.8});
 		if(e.layer._popup)
 			e.layer.openPopup();
 	}).on('search:collapsed', function(e) {
-		searchLayers.eachLayer(function(layer) {	// restaurar color entidad
-      searchLayers.resetStyle(layer);
+		tmImpe.eachLayer(function(layer) {	// restaurar color entidad
+      tmImpe.resetStyle(layer);
+		});	
+    locImpe.eachLayer(function(layer) {	// restaurar color entidad
+      locImpe.resetStyle(layer);
 		});	
 	});
 	
