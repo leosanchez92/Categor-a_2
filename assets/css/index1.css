@@ -78,6 +78,8 @@ html, body, #map {
     vertical-align: middle;
   }
 
+  
+
   .leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
     margin: 3px;
   };
