@@ -37,6 +37,8 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script src="assets/js/index1.js"></script>
 <link rel="stylesheet" href="assets/css/leaflet-search.css" />
 <script src="assets/js/leaflet-search.js"></script>
+
+
 <!--FAVICON-->
 <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
@@ -48,7 +50,8 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <script type="text/javascript" src="data/limite_comunal.js"></script>
 <script type="text/javascript" src="data/comunidades2022.js"></script>
 <script type="text/javascript" src="data/loc2022.js"></script>
-
+<link rel="stylesheet" href="assets/css/leaflet-measure.css"/>
+<script src="assets/js/leaflet-measure.js"></script>
 <script src="assets/js/leaflet.groupedlayercontrol.min.js"></script>
 <!-- <link rel="stylesheet" href="assets/css/leaflet.groupedlayercontrol.min.css" /> -->
 
@@ -212,6 +215,9 @@ popup: "La precisión actual es de aprox. {distance} {unit} alrededor de este pu
 metersUnit: "metros",
     }
 }).addTo(map);
+
+
+
 
 /*INFO RECUADRO
 
@@ -417,7 +423,7 @@ var searchControl = new L.Control.Search({
       icon: 'fa fa-map-marker',
     },
 	});
-	
+	 
 
 
   searchControl.on('search:locationfound', function(e) {
@@ -434,8 +440,14 @@ var searchControl = new L.Control.Search({
 	});
 	
   map.addControl(searchControl);
-
-
+  var measureControl = new L.Control.Measure({
+			position: 'topleft',
+            primaryLengthUnit: 'metros',
+            secondaryLengthUnit: 'kilometros',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
 
 </script>
 <!--SELECTOR DE COLOR-->
