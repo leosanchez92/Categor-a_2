@@ -79,11 +79,16 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 }
 
 .leaflet-tooltip {
-  border-color: #3399FF;
-  border-width: 2px;
-  background-color: lightgreen;
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    background: none;
+    border: 0 solid #fff;
+    box-shadow: 0 -1px -3px black;
+    color: red;
+    font-size: 9px;
+    text-align: left;
+    
 }
-
 
 </style>
 </head>
@@ -164,12 +169,13 @@ aboutPage.addEventListener('shown.bs.modal', function () {
 });
 
 // MAPA BASE
-var map = L.map('map', {zoomControl: false, minZoom: 10, maxZoom: 15, zoomSnap: 0.5}).setView([-38.6959326, -72.98552], 10.5);
+var map = L.map('map', {zoomControl: false, minZoom: 10, maxZoom: 16, zoomSnap: 0.5}).setView([-38.6959326, -72.98552], 10.5);
+
 var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     opacity: 1.0,
     minZoom: 10,
-    maxZoom: 15,
+    maxZoom: 16,
     minNativeZoom: 0,
     maxNativeZoom: 18,
     zIndex: 400,
@@ -179,11 +185,22 @@ var ESRIsat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/
     attribution: '©<a href="http://www.esri.com/"> Esri</a>',
     opacity: 1.0,
     minZoom: 10,
-    maxZoom: 15,
+    maxZoom: 16,
     minNativeZoom: 0,
     maxNativeZoom: 18,
     zIndex: 399,
 });
+
+var cartoPos = L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    attribution: '©Map tiles by CartoDB, under CC BY 3.0 ',
+    opacity: 1.0,
+    minZoom: 10,
+    maxZoom: 16,
+    minNativeZoom: 0,
+    maxNativeZoom: 18,
+    zIndex: 398,
+});
+
 
 // ZOOM CONTROL
 var zoom = L.control.zoom({
@@ -363,7 +380,7 @@ map.on('zoomend', function() {
         if( map.hasLayer(locImpe) ) {
             locImpe.eachLayer( function (layer){
                 //console.log(layer);
-                if ( zoom >= 15 && (!layer.getTooltip()) ) {
+                if ( zoom >= 14 && (!layer.getTooltip()) ) {
                     tooltiptext = '<b>'+layer.feature.properties.NOMBRE+'</b>';
                     layer.bindTooltip(tooltiptext , { sticky: true ,permanent: true, interactive: false , direction: 'center'});
                 } else if ( zoom < 14 && (layer.getTooltip()) ) {
@@ -379,7 +396,7 @@ map.on('zoomend', function() {
         if( map.hasLayer(tmImpe) ) {
             tmImpe.eachLayer( function (layer){
                 //console.log(layer);
-                if ( zoom >= 15 && (!layer.getTooltip()) ) {
+                if ( zoom >= 14 && (!layer.getTooltip()) ) {
                     tooltiptext = '<b>'+layer.feature.properties.NOMBRE+'</b>';
                     layer.bindTooltip(tooltiptext , { sticky: true ,permanent: true, interactive: false , direction: 'center'});
                 } else if ( zoom < 14 && (layer.getTooltip()) ) {
@@ -394,6 +411,7 @@ map.on('zoomend', function() {
 var baselayers = {
   "Mapa base - Open Street Maps": osm,
   "Mapa base - ESRI Satelital": ESRIsat,
+  "Mapa base - Carto Light": cartoPos,
 }
 
 var locTM = {
