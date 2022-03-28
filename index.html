@@ -149,24 +149,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
           <div class="row">
             <div class="lg-6">
               <div class="center-block">
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th><img style="margin-bottom:4px; margin-right:4px; box-shadow:2px 2px 2px gray; width: 20px; height: 
-                    20px;" src="img/search-icon.png"/></th>
-                    <th>Esta weaíta sirve para buscar weás</th>
-                    <th>Probando</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th>Probando</th>
-                  <th>Probando</th>
-                  <th>Probando</th>
-                </tr>
-              </tbody>
-              </table>
+              <p></p>
               </div>
             </div>
         </div>
@@ -476,9 +459,7 @@ var searchControl = new L.Control.Search({
       locImpe.resetStyle(layer);
 		});	
 });
-
-// MEDICION DE DISTANCIAS (SOLO EN PC)
-
+	
 map.addControl(searchControl);
 var measureControl = new L.Control.Measure({
 			position: 'topleft',
@@ -488,10 +469,7 @@ var measureControl = new L.Control.Measure({
       secondaryAreaUnit: 'hectares',
       activeColor: '#f5442',
      });
-
-if (screen.width >= 500) {
 measureControl.addTo(map);
-};
   
 var scale = L.control.scale({
   imperial: false,
@@ -504,7 +482,7 @@ scale.addTo(map);
 <style>
   /*
   .fill{
-    background-color: #06f8f8, rgb(rgb(34, 24, 24));
+    background-color: #f54425, rgb(rgb(34, 24, 24));
   }
   */
 </style>
