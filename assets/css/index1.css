@@ -1,8 +1,61 @@
-.navbar-toggler{
-  background-color: rgba(238, 196, 58, 0.808);
+
+body {
+  /*ancho del navbar*/
+  padding-top: 58px;
+}
+@media (max-width: 550px) {  /*Para ajuste responsive*/
+  body{
+    padding-top: 48px
+  };
+
+
 }
 
-/*DISPLAY INFO*/
+html, body, #container {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+#map {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: auto;
+}
+
+/* HEADER/NAVBAR */
+.navbar {
+  background: linear-gradient( rgb(236, 180, 58), rgb(231, 182, 19), rgb(241, 168, 11));
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.navbar-toggler{
+  background-color: rgba(241, 212, 113, 0.808);
+  margin-top: 1px;
+}
+
+.navbar-toggler-icon{
+  width: 20px;
+}
+
+.dropdown-menu {
+  background: linear-gradient( rgba(247, 210, 130, 0.658), rgba(248, 228, 164, 0.63), rgba(248, 205, 111, 0.705));
+  margin-top: 2px;
+  font-size: small;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #000000;
+    text-decoration: none;
+}
+
+.dropdown-menu > li > a:hover {
+    background-image: none;
+    background-color: rgba(247, 213, 62, 0.568);
+}
+
+/*MAP*/
 .info { 
   padding: 10px 10px; 
   font-size: 14px/25px; 
@@ -10,7 +63,7 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2); 
   border-radius: 5px; 
   font-family: 'Roboto', sans-serif;
-} 
+}
 
 .info h4 { 
   margin: 0 0 5px; 
@@ -32,57 +85,18 @@
     box-shadow: 10px ;
 }
 
-
-.dropdown-menu {
-  background: linear-gradient( rgba(247, 210, 130, 0.658), rgba(248, 228, 164, 0.63), rgba(248, 205, 111, 0.705));
-  margin-top: 2px;
-  }
-
-  
-.navbar {
-    background: linear-gradient( rgb(236, 180, 58), rgb(231, 182, 19), rgb(241, 168, 11));
-    font-family: 'Roboto', sans-serif;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-  }
-
-
-a:link, a:visited, a:hover, a:active {
-    color: #000000;
-    text-decoration: none;
-  }
-
- .dropdown-menu > li > a:hover {
-    background-image: none;
-    background-color: rgba(247, 213, 62, 0.568);
-      }
-
-html, body, #map {
-          width: 100%;
-          height: 100%;
-          padding-bottom: 31px;
-          margin: 0;
-      }
-  
-#map {
-    top: -20px;
-  }
-
-  .leaflet-control-layers {
-    overflow: auto;
-  }
-
-  .leaflet-control-layers label {
+.leaflet-control-layers,
+.leaflet-control-layers label {
+    overflow: normal;
     font-weight: normal;
     margin-bottom: 0px;
     font-family: 'Roboto', sans-serif;
     vertical-align: middle;
-  }
+}
 
-  
-
-  .leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
+.leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
     margin: 3px;
-  };
+  }
 
   .search-tip b {
     float: right;
@@ -117,5 +131,13 @@ html, body, #map {
 	margin-left: 4px;
 }
 
+.fa-spin{
+  color: orange;
+}
 
-;
+.fa-location-arrow {
+  vertical-align: middle;
+  margin-top: -2px;
+  color: orange;
+};
+

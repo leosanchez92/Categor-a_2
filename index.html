@@ -11,11 +11,11 @@
 
 <!-----------------------FRAMEWORKS Y COMPLEMENTOS------------------------>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
 integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 <link rel="stylesheet" href="assets/css/L.Control.Locate.scss" />
@@ -54,7 +54,7 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 
 <style>
 /*TÍTULO RESPONSIVE*/
-@media(max-width: 450px){
+@media(max-width: 550px){
     .navbar-brand{
     font-size: 4vw;
   }
@@ -62,32 +62,34 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
       width: 35px;
       height: 35px;
     }  
+
+    .navbar-collapse a{
+      font-size: 3.5vw;
+    }
   }
-
-.fa-spin{
-  color: orange;
-}
-
-.fa-location-arrow {
-  vertical-align: middle;
-  margin-top: -2px;
-  color: orange;
-};
 
 .img {
   vertical-align: middle;
 }
 
+#btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:1000;
+  background:white;
+}
+
 .leaflet-tooltip {
-    font-family: 'Roboto', sans-serif;
-    position: absolute;
-    background: none;
-    border: 0 solid #fff;
-    box-shadow: 0 -1px -3px black;
-    color: red;
-    font-size: 9px;
-    text-align: left;
-    
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  padding: 1px 3px;
+  background: white;
+  border: none;
+  box-shadow: none;
+  color: rgb(0, 0, 0);
+  font-size: 9px;
+  text-align: center;
 }
 
 </style>
@@ -96,94 +98,77 @@ integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/k
 <body>
 <!--NAVBAR-->
 <header>
-<nav class="navbar navbar-expand-md navbar-light fixed-top lex-sm-nowrap flex-wrap" aria-label="Fourth navbar example" id="navBar1">
-    <div class="container-fluid col-lg-10 col-xl-10">
-          <a class="navbar-brand" style="margin:0px;"><b>COMUNIDADES Y LOCALIDADES</b></a>
+  <nav class="navbar navbar-expand-xl navbar-light fixed-top lex-sm-nowrap flex-wrap py-1" aria-label="Fifth navbar example">
+    <div class="container-fluid col-12 col-md-12 col-lg-10 col-xl-10">
+      <a class="navbar-brand" href="#"><b>COMUNIDADES Y LOCALIDADES</b></a>
       <div style="padding-left: 4px; padding-right: 8px; justify-content: center;">
-          <img id="logo" src="img/logo_muni2.png" height="50px" width="50px" style="margin-left: 0px; margin-right: 0px;">
-      </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-    <div class="collapse navbar-collapse" id="navbarsExample04" style="margin-left:0px;">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-          <a class="nav-link" href="http://www.nuevaimperial.cl" target="_blank" aria-current="page" ref="#">Web Municipalidad</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" href="#aboutPage" data-bs-toggle="modal" data-target="#aboutPage">Ayuda</a>
-          </li>
-        <li class="nav-item dropdown" id="despliega">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Descargas</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
-            <li><a class="dropdown-item" href="#">Mapa PDF</a></li>
-            <li><a class="dropdown-item" href="data\kml\com_imp.kml">Comunidades KML</a></li>
-            <li><a class="dropdown-item" href="data\kml\loc_imp.kml">Localidades KML</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown" id="despliega">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Información territorial</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown04" style="margin-top:-10px">
-            <li><a class="dropdown-item" href="#" id="full-extent-btn">Plan regulador comunal</a></li>
-            <li><a class="dropdown-item" href="#">Áreas verdes</a></li>
-          </ul>
-        </li>  
-        </ul>
-      </div>
+        <img id="logo" src="img/logo_muni2.png" height="50px" width="50px" style="margin-left: 0px; margin-right: 0px;">
     </div>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="modal" data-bs-target="#aboutModal" aria-current="page" href="#">Ayuda visor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Descargas</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown05">
+              <li><a class="dropdown-item" href="#"><i class="fa fa-download" aria-hidden="true"></i>  Mapa PDF</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa fa-download" aria-hidden="true"></i>  Comunidades KML</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa fa-download" aria-hidden="true"></i>  Localidades KML</a></li>
+            </ul>
+          </li><li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">Información territorial</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown05">
+              <li><a class="dropdown-item" href="#"><i class="fa fa-map-o" aria-hidden="true"></i> Plan Regulador Comunal</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa fa-map-o" aria-hidden="true"></i> Áreas verdes</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa fa-map-o" aria-hidden="true"></i> Juntas de vecinos y sedes</a></li>
+            </ul>
+          
+        </ul>
+        <!--
+        <form>
+          <input class="form-control" type="text" placeholder="Buscar" aria-label="Buscar>
+        </form>
+        -->
+      </div>
   </nav>
 </header>
 <!--MAP-->
-  <div id="map">
-  </div>
-<!--MODAL ABOUT (PENDIENTE: CENTRAR CONTENIDO EN EL MODAL)-->
-<div class="modal" tabindex="" id="aboutPage">
-  <div class="modal-dialog">
+<div id="container">
+  <div id="map"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"><b>Visor territorial - Nueva Imperial</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">  
-        <div class="container-fluid">
-          <div class="row">
-            <div class="lg-6">
-              <div class="center-block">
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </p>
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th><img style="margin-bottom:4px; margin-right:4px; box-shadow:2px 2px 2px gray; width: 20px; height: 
-                    20px;" src="img/search-icon.png"/></th>
-                    <th>Esta weaíta sirve para buscar weás</th>
-                    <th>Probando</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th>Probando</th>
-                  <th>Probando</th>
-                  <th>Probando</th>
-                </tr>
-              </tbody>
-              </table>
-              </div>
-            </div>
-        </div>
+      <div class="modal-body">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
 <script>
 
 // MODAL ABOUT
-var aboutPage = document.getElementById('aboutPage')
-var myInput = document.getElementById('myInput')
-aboutPage.addEventListener('shown.bs.modal', function () {
-});
 
 // MAPA BASE
 var map = L.map('map', {zoomControl: false, minZoom: 10, maxZoom: 16, zoomSnap: 0.5}).setView([-38.6959326, -72.98552], 10.5);
@@ -210,6 +195,16 @@ var ESRIsat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/
 
 var cartoPos = L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     attribution: '©Map tiles by CartoDB, under CC BY 3.0 ',
+    opacity: 1.0,
+    minZoom: 10,
+    maxZoom: 16,
+    minNativeZoom: 0,
+    maxNativeZoom: 18,
+    zIndex: 398,
+});
+
+var openTopo = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: 'TopOSM was created by User:Ahlzen, with contributions from several others, including Ian Dees, Nick Thompson and Phil Gold.',
     opacity: 1.0,
     minZoom: 10,
     maxZoom: 16,
@@ -397,7 +392,7 @@ map.on('zoomend', function() {
         if( map.hasLayer(locImpe) ) {
             locImpe.eachLayer( function (layer){
                 //console.log(layer);
-                if ( zoom >= 14 && (!layer.getTooltip()) ) {
+                if ( zoom >= 13 && (!layer.getTooltip()) ) {
                     tooltiptext = '<b>'+layer.feature.properties.NOMBRE+'</b>';
                     layer.bindTooltip(tooltiptext , { sticky: true ,permanent: true, interactive: false , direction: 'center'});
                 } else if ( zoom < 14 && (layer.getTooltip()) ) {
@@ -413,7 +408,7 @@ map.on('zoomend', function() {
         if( map.hasLayer(tmImpe) ) {
             tmImpe.eachLayer( function (layer){
                 //console.log(layer);
-                if ( zoom >= 14 && (!layer.getTooltip()) ) {
+                if ( zoom >= 13 && (!layer.getTooltip()) ) {
                     tooltiptext = '<b>'+layer.feature.properties.NOMBRE+'</b>';
                     layer.bindTooltip(tooltiptext , { sticky: true ,permanent: true, interactive: false , direction: 'center'});
                 } else if ( zoom < 14 && (layer.getTooltip()) ) {
@@ -424,11 +419,14 @@ map.on('zoomend', function() {
         }
     });
   
+// CONTROL DE CAPAS
+
 
 var baselayers = {
   "Mapa base - Open Street Maps": osm,
   "Mapa base - ESRI Satelital": ESRIsat,
   "Mapa base - Carto Light": cartoPos,
+  "Mapa base - Topografía": openTopo,
 }
 
 var locTM = {
@@ -437,6 +435,7 @@ var locTM = {
     '<img style="margin-bottom:5px; margin-right:4px; box-shadow:2px 2px 2px gray" src="legend/locRural.png" /> Localidades rurales': locImpe
  }
 };
+
 
 L.control.groupedLayers(baselayers, locTM).addTo(map);
 
@@ -493,6 +492,7 @@ if (screen.width >= 500) {
 measureControl.addTo(map);
 };
   
+
 var scale = L.control.scale({
   imperial: false,
   }
